@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Images from '../../assets/Images';
 
-export default class LoginView extends Component {
+export default class RegistrationView extends Component {
 
     constructor(props) {
         super(props);

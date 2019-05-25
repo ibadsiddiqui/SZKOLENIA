@@ -21,7 +21,18 @@ export default class LoginView extends Component {
     }
 
     onClickListener = (viewId) => {
-        Alert.alert("Alert", "Button pressed " + viewId);
+        switch (viewId) {
+            case "restore_password":
+                Alert.alert("", "Please contact your school administration department.");
+                break;
+            case "register":
+                this.props.navigation.navigate('Register');
+                break;
+            case "login":
+
+            default:
+                break;
+        }
     }
 
     render() {
@@ -31,6 +42,7 @@ export default class LoginView extends Component {
                     <Image style={styles.inputIcon} source={Images.email} />
                     <TextInput style={styles.inputs}
                         placeholder="Email"
+                        placeholderTextColor="black"
                         maxLength={30}
                         keyboardType="email-address"
                         underlineColorAndroid='transparent'
@@ -41,21 +53,29 @@ export default class LoginView extends Component {
                     <Image style={styles.inputIcon} source={Images.password} />
                     <TextInput style={styles.inputs}
                         placeholder="Password"
+                        placeholderTextColor="black"
                         secureTextEntry={true}
                         maxLength={30}
                         underlineColorAndroid='transparent'
                         onChangeText={(password) => this.setState({ password })} />
                 </View>
 
-                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('login')}>
+                <TouchableHighlight
+                    style={[styles.buttonContainer, styles.loginButton]}
+                    onPress={() => this.onClickListener('login')}
+                >
                     <Text style={styles.loginText}>Login</Text>
                 </TouchableHighlight>
 
-                <TouchableHighlight style={styles.buttonContainer} onPress={() => this.onClickListener('restore_password')}>
+                <TouchableHighlight style={styles.buttonContainer}
+                    onPress={() => this.onClickListener('restore_password')}
+                >
                     <Text>Forgot your password?</Text>
                 </TouchableHighlight>
 
-                <TouchableHighlight style={styles.buttonContainer} onPress={() => this.onClickListener('register')}>
+                <TouchableHighlight style={styles.buttonContainer}
+                    onPress={() => this.onClickListener('register')}
+                >
                     <Text>Register</Text>
                 </TouchableHighlight>
             </View>
@@ -68,11 +88,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#DCDCDC',
+        backgroundColor: '#FFFFFF',
     },
     inputContainer: {
-        borderBottomColor: '#F5FCFF',
-        backgroundColor: '#FFFFFF',
+        borderBottomColor: '#FFFFFF',
+        backgroundColor: '#dcf4ff',
         borderRadius: 30,
         borderBottomWidth: 1,
         width: 280,
@@ -84,7 +104,7 @@ const styles = StyleSheet.create({
     inputs: {
         height: 45,
         marginLeft: 16,
-        borderBottomColor: '#FFFFFF',
+        borderBottomColor: '#F5FCFF',
         flex: 1,
     },
     inputIcon: {

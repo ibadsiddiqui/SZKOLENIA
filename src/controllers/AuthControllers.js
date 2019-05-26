@@ -4,7 +4,7 @@ export default class AuthController {
     static async hanldeRegistration(props) {
         const { email, password, confirmPassword, name } = props;
         if (password === confirmPassword) {
-            await AuthServices.registerUser(email, password);
+            await AuthServices.registerUser(email, password, name );
         }else {
             return Alert.alert('', "Passwords does not match.")
         }

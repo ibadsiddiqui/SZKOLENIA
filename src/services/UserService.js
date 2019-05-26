@@ -1,4 +1,5 @@
 import * as firebase from "firebase";
+import DBHelper from "../helpers/firebase.db.helper";
 
 export default class UserService {
     constructor() {

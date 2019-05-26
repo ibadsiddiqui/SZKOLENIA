@@ -7,16 +7,11 @@ export default class AuthServices {
             const response = await firebase.auth().createUserWithEmailAndPassword(email, password);
             const { additionalUserInfo, user } = response
             if (additionalUserInfo.isNewUser) {
-                console.log(user.refreshToken)
                 await UserService.createUserInDB(user, name)
+                return true;
             }
-        } catch (error) {   
-            console.log(error);
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
+        } catch (error) {
+            throw error.message;
         }
-
     }
 }

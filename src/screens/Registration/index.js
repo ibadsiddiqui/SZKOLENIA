@@ -4,28 +4,32 @@ import {
     Text,
     View,
     TextInput,
-    TouchableHighlight,
+    TouchableOpacity,
     Image,
     Alert
 } from 'react-native';
 import Images from '../../assets/Images';
+import AuthController from '../../controllers/AuthControllers';
 
 export default class RegistrationView extends Component {
 
     constructor(props) {
         super(props);
         state = {
-            email: '',
-            password: '',
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
         }
     }
 
-    onClickListener = (viewId) => {
+    onClickListener = async (viewId) => {
         switch (viewId) {
             case "restore_password":
                 Alert.alert("", "Please contact your school administration department.");
                 break;
             case "register":
+                await AuthController.hanldeRegistration(this.state);
                 break;
             case "login":
                 this.props.navigation.navigate('Login');
@@ -47,7 +51,7 @@ export default class RegistrationView extends Component {
                         maxLength={30}
                         keyboardType="email-address"
                         underlineColorAndroid='transparent'
-                        onChangeText={(email) => this.setState({ email })} />
+                        onChangeText={(name) => this.setState({ name })} />
                 </View>
 
                 <View style={styles.inputContainer}>
@@ -80,19 +84,19 @@ export default class RegistrationView extends Component {
                         secureTextEntry={true}
                         maxLength={30}
                         underlineColorAndroid='transparent'
-                        onChangeText={(password) => this.setState({ password })} />
+                        onChangeText={(confirmPassword) => this.setState({ confirmPassword })} />
                 </View>
-                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('register')}>
+                <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('register')}>
                     <Text style={styles.loginText}>Register</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
 
-                <TouchableHighlight style={styles.buttonContainer} onPress={() => this.onClickListener('restore_password')}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onClickListener('restore_password')}>
                     <Text>Forgot your password?</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
 
-                <TouchableHighlight style={styles.buttonContainer} onPress={() => this.onClickListener('login')}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onClickListener('login')}>
                     <Text>Already registered? Click here.</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
             </View>
         );
     }

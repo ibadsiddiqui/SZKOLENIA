@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
+    ActivityIndicator,
+    ToastAndroid,
     View,
     TextInput,
     TouchableOpacity,
@@ -15,21 +17,41 @@ export default class RegistrationView extends Component {
 
     constructor(props) {
         super(props);
-        state = {
+        this.state = {
             name: "",
             email: "",
             password: "",
             confirmPassword: "",
+            attemptingRegister: false
         }
     }
 
+    toggleLoader = () => this.setState(prevState => ({
+        attemptingRegister: !prevState.attemptingRegister
+    }))
+
+    resetState = () => {
+        this.setState({
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+        })
+    }
+
     onClickListener = async (viewId) => {
+        const { navigate } = this.props.navigation;
+        const helper = {
+            navigate: (route) => navigate(route),
+            resetState: () => this.resetState(),
+            toggleLoader: () => this.toggleLoader()
+        }
         switch (viewId) {
             case "restore_password":
                 Alert.alert("", "Please contact your school administration department.");
                 break;
             case "register":
-                await AuthController.hanldeRegistration(this.state);
+                await AuthController.hanldeRegistration(this.state, helper);
                 break;
             case "login":
                 this.props.navigation.navigate('Login');
@@ -41,67 +63,74 @@ export default class RegistrationView extends Component {
     }
 
     render() {
-        return (
-            <View style={styles.container}>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Images.email} />
-                    <TextInput style={styles.inputs}
-                        placeholder="Name"
-                        placeholderTextColor="black"
-                        maxLength={30}
-                        keyboardType="email-address"
-                        underlineColorAndroid='transparent'
-                        onChangeText={(name) => this.setState({ name })} />
+        const { attemptingRegister } = this.state;
+        if (attemptingRegister === false)
+            return (
+                <View style={styles.container}>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Images.email} />
+                        <TextInput style={styles.inputs}
+                            placeholder="Name"
+                            placeholderTextColor="black"
+                            maxLength={30}
+                            keyboardType="email-address"
+                            underlineColorAndroid='transparent'
+                            onChangeText={(name) => this.setState({ name })} />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Images.email} />
+                        <TextInput style={styles.inputs}
+                            placeholder="Email"
+                            placeholderTextColor="black"
+                            maxLength={30}
+                            keyboardType="email-address"
+                            underlineColorAndroid='transparent'
+                            onChangeText={(email) => this.setState({ email })} />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Images.password} />
+                        <TextInput style={styles.inputs}
+                            placeholder="Password"
+                            placeholderTextColor="black"
+                            secureTextEntry={true}
+                            maxLength={30}
+                            underlineColorAndroid='transparent'
+                            onChangeText={(password) => this.setState({ password })} />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Images.password} />
+                        <TextInput style={styles.inputs}
+                            placeholder="Confirm Password"
+                            placeholderTextColor="black"
+                            secureTextEntry={true}
+                            maxLength={30}
+                            underlineColorAndroid='transparent'
+                            onChangeText={(confirmPassword) => this.setState({ confirmPassword })} />
+                    </View>
+                    <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('register')}>
+                        <Text style={styles.loginText}>Register</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onClickListener('restore_password')}>
+                        <Text>Forgot your password?</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onClickListener('login')}>
+                        <Text>Already registered? Click here.</Text>
+                    </TouchableOpacity>
                 </View>
-
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Images.email} />
-                    <TextInput style={styles.inputs}
-                        placeholder="Email"
-                        placeholderTextColor="black"
-                        maxLength={30}
-                        keyboardType="email-address"
-                        underlineColorAndroid='transparent'
-                        onChangeText={(email) => this.setState({ email })} />
+            );
+        else
+            return (
+                <View style={styles.container}>
+                    <ActivityIndicator size="large" color="#00b5ec" />
                 </View>
-
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Images.password} />
-                    <TextInput style={styles.inputs}
-                        placeholder="Password"
-                        placeholderTextColor="black"
-                        secureTextEntry={true}
-                        maxLength={30}
-                        underlineColorAndroid='transparent'
-                        onChangeText={(password) => this.setState({ password })} />
-                </View>
-
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Images.password} />
-                    <TextInput style={styles.inputs}
-                        placeholder="Confirm Password"
-                        placeholderTextColor="black"
-                        secureTextEntry={true}
-                        maxLength={30}
-                        underlineColorAndroid='transparent'
-                        onChangeText={(confirmPassword) => this.setState({ confirmPassword })} />
-                </View>
-                <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('register')}>
-                    <Text style={styles.loginText}>Register</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onClickListener('restore_password')}>
-                    <Text>Forgot your password?</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.onClickListener('login')}>
-                    <Text>Already registered? Click here.</Text>
-                </TouchableOpacity>
-            </View>
-        );
+            )
     }
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

@@ -2,15 +2,15 @@ import * as firebase from 'firebase';
 
 export default class DBHelper {
 
-    createUser(firebaseData,name) {
-        const { uid, email, refreshToken } = firebaseData;
-        firebase.database().ref('users/' + uid).set({
-          name: name,
-          email: email,
-          refreshToken,
-          currentWordReceived:{},
-          listOfWordsReceived: [],
-        });
-      }
-      
+  static async createUser(firebaseData, name) {
+    const { uid, email, refreshToken } = firebaseData;
+    await firebase.database().ref('users/' + uid).set({
+      name: name,
+      email: email,
+      refreshToken: refreshToken,
+      currentWordReceived: {},
+      listOfWordsReceived: [],
+    });
+  }
+
 }

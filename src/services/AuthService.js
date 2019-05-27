@@ -14,4 +14,13 @@ export default class AuthServices {
             throw error.message;
         }
     }
+
+    static async signInUser(email, password) {
+        try {
+            const response = await firebase.auth().signInWithEmailAndPassword(email, password);
+            return true;
+        } catch (error) {
+            throw error.message;
+        }
+    }
 }

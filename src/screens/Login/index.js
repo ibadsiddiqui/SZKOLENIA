@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
+    ActivityIndicator,
     View,
     TextInput,
     TouchableHighlight,
@@ -9,18 +10,36 @@ import {
     Alert
 } from 'react-native';
 import Images from '../../assets/Images';
+import AuthController from '../../controllers/AuthControllers';
 
 export default class LoginView extends Component {
-
     constructor(props) {
         super(props);
-        state = {
-            email: '',
-            password: '',
+        this.state = {
+            email: 'ibad@mail.com',
+            password: 'inad011',
+            attemptingLogin: false
         }
     }
 
-    onClickListener = (viewId) => {
+    resetState = () => this.setState({
+        email: '',
+        password: '',
+    })
+
+    toggleLoader = () => this.setState(prevState => ({
+        attemptingLogin: !prevState.attemptingLogin
+    }))
+
+    onClickListener = async (viewId) => {
+        const { navigate } = this.props.navigation;
+
+        const helper = {
+            toggleLoader: () => this.toggleLoader(),
+            resetState: () => this.resetState(),
+            navigate: (route) => navigate(route)
+        };
+
         switch (viewId) {
             case "restore_password":
                 Alert.alert("", "Please contact your school administration department.");
@@ -29,57 +48,68 @@ export default class LoginView extends Component {
                 this.props.navigation.navigate('Register');
                 break;
             case "login":
-
+                await AuthController.hanldeSignIn(this.state, helper);
+                break;
             default:
                 break;
         }
     }
 
     render() {
-        return (
-            <View style={styles.container}>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Images.email} />
-                    <TextInput style={styles.inputs}
-                        placeholder="Email"
-                        placeholderTextColor="black"
-                        maxLength={30}
-                        keyboardType="email-address"
-                        underlineColorAndroid='transparent'
-                        onChangeText={(email) => this.setState({ email })} />
+        const { attemptingLogin, email, password } = this.state;
+        if (!attemptingLogin)
+            return (
+                <View style={styles.container}>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Images.email} />
+                        <TextInput style={styles.inputs}
+                            placeholder="Email"
+                            placeholderTextColor="black"
+                            maxLength={30}
+                            value={email}
+                            keyboardType="email-address"
+                            underlineColorAndroid='transparent'
+                            onChangeText={(email) => this.setState({ email })} />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Images.password} />
+                        <TextInput style={styles.inputs}
+                            placeholder="Password"
+                            placeholderTextColor="black"
+                            secureTextEntry={true}
+                            value={password}
+                            maxLength={30}
+                            underlineColorAndroid='transparent'
+                            onChangeText={(password) => this.setState({ password })} />
+                    </View>
+
+                    <TouchableHighlight
+                        style={[styles.buttonContainer, styles.loginButton]}
+                        onPress={() => this.onClickListener('login')}
+                    >
+                        <Text style={styles.loginText}>Login</Text>
+                    </TouchableHighlight>
+
+                    <TouchableHighlight style={styles.buttonContainer}
+                        onPress={() => this.onClickListener('restore_password')}
+                    >
+                        <Text>Forgot your password?</Text>
+                    </TouchableHighlight>
+
+                    <TouchableHighlight style={styles.buttonContainer}
+                        onPress={() => this.onClickListener('register')}
+                    >
+                        <Text>Register</Text>
+                    </TouchableHighlight>
                 </View>
-
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Images.password} />
-                    <TextInput style={styles.inputs}
-                        placeholder="Password"
-                        placeholderTextColor="black"
-                        secureTextEntry={true}
-                        maxLength={30}
-                        underlineColorAndroid='transparent'
-                        onChangeText={(password) => this.setState({ password })} />
+            );
+        else
+            return (
+                <View style={styles.container}>
+                    <ActivityIndicator size="large" color="#00b5ec" />
                 </View>
-
-                <TouchableHighlight
-                    style={[styles.buttonContainer, styles.loginButton]}
-                    onPress={() => this.onClickListener('login')}
-                >
-                    <Text style={styles.loginText}>Login</Text>
-                </TouchableHighlight>
-
-                <TouchableHighlight style={styles.buttonContainer}
-                    onPress={() => this.onClickListener('restore_password')}
-                >
-                    <Text>Forgot your password?</Text>
-                </TouchableHighlight>
-
-                <TouchableHighlight style={styles.buttonContainer}
-                    onPress={() => this.onClickListener('register')}
-                >
-                    <Text>Register</Text>
-                </TouchableHighlight>
-            </View>
-        );
+            )
     }
 }
 

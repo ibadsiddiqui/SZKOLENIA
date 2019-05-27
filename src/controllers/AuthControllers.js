@@ -9,7 +9,7 @@ export default class AuthController {
             try {
                 const response = await AuthServices.registerUser(email, password, name);
                 if (response === true)
-                    return navigate('MainTabNavigator');
+                    return navigate('Main');
             } catch (error) {
                 ToastAndroid.show(error, ToastAndroid.SHORT)
                 toggleLoader()
@@ -18,6 +18,24 @@ export default class AuthController {
             }
         } else {
             return Alert.alert('', "Passwords does not match.")
+        }
+    }
+
+    static async hanldeSignIn(props, helper) {
+        const { email, password } = props;
+        const { navigate, resetState, toggleLoader } = helper
+        toggleLoader()
+        try {
+            const response = await AuthServices.signInUser(email, password);
+            if (response === true) {
+                toggleLoader()
+                return navigate('Main');
+            }
+        } catch (error) {
+            ToastAndroid.show(error, ToastAndroid.SHORT)
+            toggleLoader()
+            resetState();
+            return;
         }
     }
 }

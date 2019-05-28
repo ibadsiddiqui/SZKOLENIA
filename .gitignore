@@ -5,3 +5,4 @@ npm-debug.*
 *.p12
 *.key
 *.mobileprovision
+push_notificaiton_sender/node_modules

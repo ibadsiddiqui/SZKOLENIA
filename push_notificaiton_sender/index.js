@@ -5,15 +5,14 @@ const UserHelpers = require('./services/UsersServices');
 const express = require('express');
 const app = express();
 
-
+const notifications =  require('./services/NotificationServices')
 app.get('/getlist', async (req, res) => {
     const list = await UserHelpers.getUsersPushNotificationToken();
     res.status(200).send(list)
 })
 
 app.get('/getWords', async (req,res) => {
-    const list = await UserHelpers.listOfWords();
-    res.status(200).send(list)
+    notifications();
 })
 
 app.listen(3000, () => {

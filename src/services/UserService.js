@@ -9,4 +9,8 @@ export default class UserService {
     static async createUserInDB(firebaseData, name) {
         await DBHelper.createUser(firebaseData, name)
     }
+
+    static async updateUserTokenInDB(firebaseData) {
+        await DBHelper.updateUserToken(firebaseData);
+    }
 }

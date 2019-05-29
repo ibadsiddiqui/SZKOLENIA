@@ -6,10 +6,13 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-
+import {MaterialIcons} from '@expo/vector-icons'
+import Colors from '../constants/Colors';
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
-});
+}, {
+    headerMode: 'none'
+  });
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
@@ -25,36 +28,26 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
-});
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  ),
-};
-
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen,
-});
+}, {
+    headerMode: 'none'
+  });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'History',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
+    <MaterialIcons
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+
+      name="format-list-bulleted"
+      size={26}
     />
   ),
 };
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
   SettingsStack,
 });

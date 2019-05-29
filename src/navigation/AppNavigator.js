@@ -11,4 +11,7 @@ export default createAppContainer(createStackNavigator({
   Login: LoginView,
   Register: RegistrationView,
   Main: MainTabNavigator,
-}));
+}, {
+    headerMode: 'none'
+  })
+);

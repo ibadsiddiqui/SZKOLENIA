@@ -27,7 +27,6 @@
     },
     "android": {
       "package": "com.ibadsiddiqui.szkolenia",
-      "googleServicesFile": "./google-services.json"
     }
   }
 }

@@ -1,6 +1,6 @@
 import * as firebase from "firebase";
 import UserService from "./UserService";
-
+import { AsyncStorage } from 'react-native'
 export default class AuthServices {
     static async registerUser(email, password, name) {
         try {
@@ -19,6 +19,7 @@ export default class AuthServices {
         try {
             const response = await firebase.auth().signInWithEmailAndPassword(email, password);
             await UserService.updateUserTokenInDB(response.user)
+            await AsyncStorage.setItem('uid', response.user.uid)
             return true;
         } catch (error) {
             throw error.message;

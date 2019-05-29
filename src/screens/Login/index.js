@@ -9,15 +9,20 @@ import {
     Image,
     Alert
 } from 'react-native';
+import { Notifications } from 'expo'
 import Images from '../../assets/Images';
 import AuthController from '../../controllers/AuthControllers';
 
 export default class LoginView extends Component {
+    static navigationOptions = {
+        header: null,
+    };
+
     constructor(props) {
         super(props);
         this.state = {
-            email: 'ibad@mail.com',
-            password: 'inad011',
+            email: '',
+            password: '',
             attemptingLogin: false
         }
     }

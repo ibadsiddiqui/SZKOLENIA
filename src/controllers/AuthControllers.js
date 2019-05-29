@@ -9,7 +9,7 @@ export default class AuthController {
             try {
                 const response = await AuthServices.registerUser(email, password, name);
                 if (response === true)
-                    return navigate('Main');
+                    return navigate('Login');
             } catch (error) {
                 ToastAndroid.show(error, ToastAndroid.SHORT)
                 toggleLoader()

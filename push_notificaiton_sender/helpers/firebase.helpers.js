@@ -19,8 +19,6 @@ module.exports.getUsersIDList = async (params) => {
     const ref = db.ref('users/');
     let results = []
     await ref.once("value", snapshot => results.push(snapshot.val()));
-    console.log(results);
-
     const UsersWithID = results.map((item) => Object.keys(item));
     return UsersWithID[0]
 }

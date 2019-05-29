@@ -18,6 +18,7 @@ export default class AuthServices {
     static async signInUser(email, password) {
         try {
             const response = await firebase.auth().signInWithEmailAndPassword(email, password);
+            await UserService.updateUserTokenInDB(response.user)
             return true;
         } catch (error) {
             throw error.message;

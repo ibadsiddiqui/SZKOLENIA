@@ -11,3 +11,8 @@ module.exports.listOfWords = async () => {
     const list = await firebaseHelpers.getListOfWords();
     return list;
 }
+
+module.exports.getUsersIDs = async () => { 
+    const IDs = await firebaseHelpers.getUsersIDList();
+    return IDs;
+}

@@ -26,7 +26,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.ibadsiddiqui.szkolenia",
+      "package": "com.ibadsiddiqui.szkolenia"
     }
   }
 }

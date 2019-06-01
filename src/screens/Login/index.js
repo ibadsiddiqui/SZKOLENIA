@@ -68,9 +68,9 @@ export default class LoginView extends Component {
                     </View>
 
                     <View style={styles.inputContainer}>
-                        <Image style={styles.inputIcon} source={Images.email} />
+                        <Image style={styles.inputIcon} source={Images.username} />
                         <TextInput style={styles.inputs}
-                            placeholder="Email"
+                            placeholder="Please enter username"
                             placeholderTextColor="black"
                             maxLength={30}
                             value={email}
@@ -82,7 +82,7 @@ export default class LoginView extends Component {
                     <View style={styles.inputContainer}>
                         <Image style={styles.inputIcon} source={Images.password} />
                         <TextInput style={styles.inputs}
-                            placeholder="Password"
+                            placeholder="Please enter PIN"
                             placeholderTextColor="black"
                             secureTextEntry={true}
                             value={password}
@@ -91,17 +91,18 @@ export default class LoginView extends Component {
                             onChangeText={(password) => this.setState({ password })} />
                     </View>
 
-                    <TouchableHighlight
+                    <TouchableHighlight underlayColor="transparent"
                         style={[styles.buttonContainer, styles.loginButton]}
                         onPress={() => this.onClickListener('login')}
                     >
                         <Text style={styles.loginText}>Login</Text>
                     </TouchableHighlight>
 
-                    <TouchableHighlight style={styles.buttonContainer}
+                    <TouchableHighlight underlayColor="transparent"
+                        style={styles.buttonContainer}
                         onPress={() => this.onClickListener('restore_password')}
                     >
-                        <Text>Forgot your password?</Text>
+                        <Text>Forgot your PIN? Click here.</Text>
                     </TouchableHighlight>
                 </View>
             );
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
     },
-    backgroundContainer:{
+    backgroundContainer: {
         position: 'absolute',
         alignSelf: 'center',
         justifyContent: 'center',

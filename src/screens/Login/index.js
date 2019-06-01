@@ -6,12 +6,13 @@ import {
     View,
     TextInput,
     TouchableHighlight,
+    Dimensions,
     Image,
     Alert
 } from 'react-native';
-import { Notifications } from 'expo'
 import Images from '../../assets/Images';
 import AuthController from '../../controllers/AuthControllers';
+const { height, width } = Dimensions.get('window')
 
 export default class LoginView extends Component {
     static navigationOptions = {
@@ -65,6 +66,17 @@ export default class LoginView extends Component {
         if (!attemptingLogin)
             return (
                 <View style={styles.container}>
+                    <View style={{
+                        position: 'absolute',
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                        width: width * 0.5,
+                        left: 0,
+                        height,
+                    }}>
+                        <Image source={Images.backgroundLogin} resizeMode="cover" style={{ opacity: 0.1, right: 80 }} />
+                    </View>
+
                     <View style={styles.inputContainer}>
                         <Image style={styles.inputIcon} source={Images.email} />
                         <TextInput style={styles.inputs}

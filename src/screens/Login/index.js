@@ -50,9 +50,6 @@ export default class LoginView extends Component {
             case "restore_password":
                 Alert.alert("", "Please contact your school administration department.");
                 break;
-            case "register":
-                this.props.navigation.navigate('Register');
-                break;
             case "login":
                 await AuthController.hanldeSignIn(this.state, helper);
                 break;
@@ -112,12 +109,6 @@ export default class LoginView extends Component {
                         onPress={() => this.onClickListener('restore_password')}
                     >
                         <Text>Forgot your password?</Text>
-                    </TouchableHighlight>
-
-                    <TouchableHighlight style={styles.buttonContainer}
-                        onPress={() => this.onClickListener('register')}
-                    >
-                        <Text>Register</Text>
                     </TouchableHighlight>
                 </View>
             );

@@ -63,14 +63,7 @@ export default class LoginView extends Component {
         if (!attemptingLogin)
             return (
                 <View style={styles.container}>
-                    <View style={{
-                        position: 'absolute',
-                        alignSelf: 'center',
-                        justifyContent: 'center',
-                        width: width * 0.5,
-                        left: 0,
-                        height,
-                    }}>
+                    <View style={styles.backgroundContainer}>
                         <Image source={Images.backgroundLogin} resizeMode="cover" style={{ opacity: 0.1, right: 80 }} />
                     </View>
 
@@ -127,6 +120,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
+    },
+    backgroundContainer:{
+        position: 'absolute',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        width: width * 0.5,
+        left: 0,
+        height,
     },
     inputContainer: {
         borderBottomColor: '#FFFFFF',

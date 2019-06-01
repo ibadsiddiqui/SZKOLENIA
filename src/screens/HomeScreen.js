@@ -30,7 +30,6 @@ export default class HomeScreen extends React.Component {
     const db = firebase.database();
     db.ref('/users/' + uid).on('value', (snapshot) => {
       this.setState(snapshot.val());
-
     })
   }
 
@@ -40,37 +39,37 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <Image source={Images.background} resizeMode="cover" style={{ position: 'absolute', width, height }} />
         <View style={{ flex: 1 }} />
-        <View style={{ flex: 3, alignItems: 'center', height: height * 0.5, justifyContent: 'center', borderWidth: 1, borderColor: "rgb(208,229,255)", marginHorizontal: 5 }}>
-          <View style={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row', borderWidth: 1, borderColor: "rgb(208,229,255)", }}>
-            <View style={{ flex: 0.75, alignSelf: 'stretch', borderWidth: 1, backgroundColor: "rgb(241,248,255)", borderColor: "rgb(208,229,255)", justifyContent: 'center' }}>
-              <Text style={{ fontSize: 16, color: 'purple', paddingLeft: 10, textAlignVertical: 'center' }}>Today's Word: </Text>
+        <View style={styles.table}>
+          <View style={styles.row}>
+            <View style={styles.headingCell}>
+              <Text style={[styles.heading, { textAlignVertical: 'center' }]}>Today's Word: </Text>
             </View>
-            <View style={{ flex: 1.5, alignSelf: 'stretch', borderWidth: 1, backgroundColor: "rgb(241,248,255)", borderColor: "rgb(208,229,255)", justifyContent: 'center' }}>
-              <Text style={{ fontSize: 17, color: '#2e78b7', marginLeft: 5, }}>{Word}</Text>
-            </View>
-          </View>
-          <View style={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row', borderWidth: 1, borderColor: "rgb(208,229,255)", }}>
-            <View style={{ flex: 0.75, alignSelf: 'stretch', borderWidth: 1, backgroundColor: "rgb(241,248,255)", borderColor: "rgb(208,229,255)", justifyContent: 'center' }}>
-              <Text style={{ fontSize: 16, color: 'purple', paddingLeft: 10 }}>Translation: </Text>
-            </View>
-            <View style={{ flex: 1.5, alignSelf: 'stretch', borderWidth: 1, backgroundColor: "rgb(241,248,255)", borderColor: "rgb(208,229,255)", justifyContent: 'center' }}>
-              <Text style={{ fontSize: 17, color: '#2e78b7', marginLeft: 5, }}>{Translation}</Text>
+            <View style={styles.wordContainer}>
+              <Text style={styles.word}>{Word === "" ? "Wait while we send you the word" : Word}</Text>
             </View>
           </View>
-          <View style={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row', borderWidth: 1, borderColor: "rgb(208,229,255)", }}>
-            <View style={{ flex: 0.75, alignSelf: 'stretch', borderWidth: 1, backgroundColor: "rgb(241,248,255)", borderColor: "rgb(208,229,255)", justifyContent: 'center' }}>
-              <Text style={{ fontSize: 16, color: 'purple', paddingLeft: 10 }}>Meaning: </Text>
+          <View style={styles.row}>
+            <View style={styles.headingCell}>
+              <Text style={styles.heading}>Translation: </Text>
             </View>
-            <View style={{ flex: 1.5, alignSelf: 'stretch', borderWidth: 1, backgroundColor: "rgb(241,248,255)", borderColor: "rgb(208,229,255)", justifyContent: 'center' }}>
-              <Text style={{ fontSize: 17, color: '#2e78b7', marginLeft: 5, }}>{Meaning}</Text>
+            <View style={styles.wordContainer}>
+              <Text style={styles.word}>{Translation===""  ? "Wait while we send you the translation" : Translation}</Text>
             </View>
           </View>
-          <View style={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row', borderWidth: 1, borderColor: "rgb(208,229,255)", }}>
-            <View style={{ flex: 0.75, alignSelf: 'stretch', borderWidth: 1, backgroundColor: "rgb(241,248,255)", borderColor: "rgb(208,229,255)", justifyContent: 'center' }}>
-              <Text style={{ fontSize: 16, color: 'purple', paddingLeft: 10 }}>Sentence: </Text>
+          <View style={styles.row}>
+            <View style={styles.headingCell}>
+              <Text style={styles.heading}>Meaning: </Text>
             </View>
-            <View style={{ flex: 1.5, alignSelf: 'stretch', borderWidth: 1, backgroundColor: "rgb(241,248,255)", borderColor: "rgb(208,229,255)", justifyContent: 'center' }}>
-              <Text style={{ fontSize: 17, color: '#2e78b7', marginLeft: 5, }}>{Sentence}</Text>
+            <View style={styles.wordContainer}>
+              <Text style={styles.word}>{Meaning === "" ? "Wait while we send you the meaning" : Meaning}</Text>
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.headingCell}>
+              <Text style={styles.heading}>Sentence: </Text>
+            </View>
+            <View style={styles.wordContainer}>
+              <Text style={styles.word}>{Sentence ==="" ? "Wait while we send you the sentence" : Sentence}</Text>
             </View>
           </View>
         </View>
@@ -88,87 +87,46 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     justifyContent: 'center'
   },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
+  table: {
+    flex: 3,
     alignItems: 'center',
-    marginTop: 20,
+    height: height * 0.5,
     justifyContent: 'center',
-    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: "rgb(208,229,255)",
+    marginHorizontal: 5
   },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
+  row: {
+    flex: 1,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: "rgb(208,229,255)",
   },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
+  headingCell: {
+    flex: 0.75,
+    alignSelf: 'stretch',
+    borderWidth: 1,
+    backgroundColor: "rgb(241,248,255)",
+    borderColor: "rgb(208,229,255)",
+    justifyContent: 'center'
   },
-  homeScreenFilename: {
-    marginVertical: 7,
+  heading: {
+    fontSize: 16,
+    color: 'purple',
+    paddingLeft: 10
   },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
+  wordContainer: {
+    flex: 1.5,
+    alignSelf: 'stretch',
+    borderWidth: 1,
+    backgroundColor: "rgb(241,248,255)",
+    borderColor: "rgb(208,229,255)",
+    justifyContent: 'center'
   },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
+  word: {
     fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
     color: '#2e78b7',
+    marginLeft: 5,
   },
 });

@@ -37,7 +37,7 @@ export default class HomeScreen extends React.Component {
     const { Word, Meaning, Sentence, Translation } = this.state.currentWord
     return (
       <View style={styles.container}>
-        <Image source={Images.background} resizeMode="cover" style={{ position: 'absolute', width, height }} />
+        <Image source={Images.background} resizeMode="cover" style={{ opacity: 0.4, width: width, height: height, position:'absolute' }} />
         <View style={{ flex: 1 }} />
         <View style={styles.table}>
           <View style={styles.row}>
@@ -53,7 +53,7 @@ export default class HomeScreen extends React.Component {
               <Text style={styles.heading}>Translation: </Text>
             </View>
             <View style={styles.wordContainer}>
-              <Text style={styles.word}>{Translation===""  ? "Wait while we send you the translation" : Translation}</Text>
+              <Text style={styles.word}>{Translation === "" ? "Wait while we send you the translation" : Translation}</Text>
             </View>
           </View>
           <View style={styles.row}>
@@ -69,7 +69,7 @@ export default class HomeScreen extends React.Component {
               <Text style={styles.heading}>Sentence: </Text>
             </View>
             <View style={styles.wordContainer}>
-              <Text style={styles.word}>{Sentence ==="" ? "Wait while we send you the sentence" : Sentence}</Text>
+              <Text style={styles.word}>{Sentence === "" ? "Wait while we send you the sentence" : Sentence}</Text>
             </View>
           </View>
         </View>

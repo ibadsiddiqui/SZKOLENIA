@@ -1,8 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, FlatList, AsyncStorage } from 'react-native';
+import { TouchableOpacity, View, Text, Image, AsyncStorage, Dimensions } from 'react-native';
 import * as firebase from "firebase";
 import { ScrollView } from 'react-native-gesture-handler';
+import Images from '../assets/Images';
 
+const { width, height } = Dimensions.get('window')
 export default class SettingsScreen extends React.Component {
   constructor() {
     super();
@@ -50,6 +52,7 @@ export default class SettingsScreen extends React.Component {
   render() {
     return (
       <View>
+        <Image source={Images.background} resizeMode="cover" style={{ opacity: 0.4, width: width, height: height, position: 'absolute' }} />
         <Text style={{ fontSize: 20, color: "#2e78b7", textAlign: 'center', marginTop: 40 }}>Previous Words:</Text>
         <ScrollView automaticallyAdjustContentInsets={true} contentInsetAdjustmentBehavior='always'>
           {

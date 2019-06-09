@@ -64,7 +64,7 @@ export default class LoginView extends Component {
             return (
                 <View style={styles.container}>
                     <View style={styles.backgroundContainer}>
-                        <Image source={Images.backgroundLogin} resizeMode="cover" style={{ opacity: 0.1, right: 80 }} />
+                        <Image source={Images.background} resizeMode="cover" style={{ opacity: 0.4,  width:width, height:height }} />
                     </View>
 
                     <View style={styles.inputContainer}>
